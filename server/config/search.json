@@ -1,0 +1,10 @@
+{
+	"CSDN": {
+		"全部": "https://so.csdn.net/so/search/s.do?q={searchSt}&t=&o=&s=&l=",
+		"博客": "https://so.csdn.net/so/search/s.do?q={searchSt}&t=blog&o=&s=&l="
+	},
+	"博客园": {
+		"新闻": "https://zzk.cnblogs.com/s/news?w={searchSt}",
+		"博客": "https://zzk.cnblogs.com/s/blogpost?w={searchSt}"
+	}
+}

@@ -1,0 +1,40 @@
+{
+  "name": "ithome",
+  "version": "1.0.0",
+  "description": "it",
+  "main": "web.config.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --hot --config webpack.dev.config.js",
+    "build": "webpack --progress --hide-modules"
+  },
+  "author": "zh-huan",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "axios": "^0.19.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "cheerio": "^1.0.0-rc.3",
+    "css-loader": "^3.2.0",
+    "ejs": "^2.6.2",
+    "iconv-lite": "^0.5.0",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.0",
+    "style-loader": "^1.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.1",
+    "vue-router": "^3.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
