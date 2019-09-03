@@ -7,6 +7,10 @@ router.post("/index", async (ctx) => {
         if (params) {
             let config = ctx.config;
             let url = config[params.type]["index"][params.subType];
+            if(params.pageIndex&&params.pageIndex>0){
+                let pageIndex=params.pageIndex;
+                url="https://www.cnblogs.com/sitehome/p/"+pageIndex;
+            }
             let $ = await cheerioHelp.getCheerio(url);
             let bolgIndex = getBlogIndex($);
             ctx.body = result.setDatas(bolgIndex);
@@ -17,7 +21,6 @@ router.post("/index", async (ctx) => {
         ctx.body = result.setError(e);
     }
 });
-
 function getBlogIndex($) {
     let $postList = $("#post_list");
     let $postItems = $postList.find(".post_item");

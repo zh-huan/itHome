@@ -1,0 +1,50 @@
+*
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+body
+  background: #f5f6f7;
+  font-size: 16px;
+  overflow-x :hidden
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+body, ul, li
+  padding: 0;
+  margin: 0;
+
+ul
+  list-style-type: none;
+
+.clearfix:after
+  content: '.';
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+
+a
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+/***头部样式***/
+.header
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%
+  height: 40px;
+  color: #333;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+  padding: 0px 60px;
+
+.header_type-item
+  display: inline-block;
+  padding: 0 8px;
+  line-height: 38px;
+  cursor:pointer;
+
+.header_type-item.selected
+  border-bottom: 2px solid #CA0C16;
+

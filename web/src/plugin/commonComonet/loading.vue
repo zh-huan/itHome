@@ -62,5 +62,6 @@ export default {
     right :auto;
     height :2px;
     background-color :#ca0c16;
+    box-shadow:0px 2px 3px rgba(202,12,22,0.1)
     z-index :1000
 </style>

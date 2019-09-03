@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-    import "./static/common/base.styl"
+    import "./src/assets/css/base.styl"
     export default {
         data(){
             return{
