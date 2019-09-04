@@ -40,7 +40,16 @@
                     </div>
                 </li>
             </ul>
-            <div class="post-list-loading"><span class="icon"></span><span>加载中......</span></div>
+            <div class="post-list-loading">
+                <div style="display: inline-block;">
+                    <div class="loading"></div>
+                    <div class="loading"></div>
+                    <div class="loading"></div>
+                    <div class="loading"></div>
+                    <div class="loading"></div>
+                </div>
+
+            </div>
         </main>
         <aside class="content-aside clearfix">
         </aside>
@@ -73,6 +82,8 @@
                     if (this.subTypes && this.subTypes.length) {
                         this.changeSubType(this.subTypes[0]);
                     }
+                }).catch((err)=>{
+                    console.error(err);
                 });
             },
             changeSubType(subType) {
@@ -116,7 +127,7 @@
                         subType: this.subTypeSelected.router,
                         pageIndex: this.currentPage
                     };
-                  //  this.getPageDatas(params);
+                    this.getPageDatas(params);
                 }
             }
         },
@@ -225,11 +236,47 @@
 .post-list-loading
     background-color :#fff;
     text-align: center;
+    padding: 10px;
     .icon
         width :18px;
         height :18px;
         background-image :url("../../assets/img/loading.gif");
 
+.post-list-loading .loading {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: #68b2ce;
+    float: left;
+    margin: 0 3px;
+    animation: loading linear 1s infinite;
+    -webkit-animation: loading linear 1s infinite;
+ }
+.post-list-loading .loading:nth-child(1){
+      animation-delay:0s;
+ }
+.post-list-loading .loading:nth-child(2){
+       animation-delay:0.15s;
+ }
+.post-list-loading .loading:nth-child(3){
+      animation-delay:0.3s;
+ }
+.post-list-loading .loading:nth-child(4){
+      animation-delay:0.45s;
+ }
+.post-list-loading .loading:nth-child(5){
+       animation-delay:0.6s;
+ }
+ @keyframes loading
+ {
+     0%,60%,100% {transform: scale(1);}
+     30% {transform: scale(2.5);}
+ }
+ @-webkit-keyframes loading
+ {
+     0%,60%,100% {transform: scale(1);}
+    30% {transform: scale(2.5);}
+ }
 
 
 </style>
