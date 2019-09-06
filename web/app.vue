@@ -7,6 +7,12 @@
                     :class="{'selected': typeSelected==typeItem.name}" @click="typeClick(typeItem)">{{typeItem.name}}
                 </li>
             </ul>
+            <div class="search">
+                <input type="text" v-model="searchKey" placeholder="搜索"/>
+                <a class="search-link" @click="searchDatas()">
+                    <i class="search-icon" ></i>
+                </a>
+            </div>
             <div class="login-wrap"></div>
         </div>
         <keep-alive>
@@ -23,12 +29,13 @@
             return {
                 types: [],
                 typeSelected: "",
-                loading: false
+                loading: false,
+                searchKey:null
             }
         },
         mounted() {
             // 并且响应成功以后会执行then方法中的回调函数
-            this.$ajax("/index/getType", {}, "post").then((result) => {
+            this.$ajax("/api/index/getType", {}, "post").then((result) => {
                 this.types = result.datas;
                 if (this.types && this.types.length) {
                     this.getSelected(this.types);
@@ -40,7 +47,7 @@
         methods: {
             getSelected(types) {
                 let type = this.$route.params.type;
-                if (!type) {
+                if (!type&&this.$route.name=="index") {
                     this.typeClick(types[0]);
                     return;
                 }
@@ -56,7 +63,15 @@
             typeClick(typeItem) {
                 this.typeSelected = typeItem.name;
                 this.$router.push({
-                    path: `/${typeItem.router}`,
+                    path: `/index/${typeItem.router}`,
+                })
+            },
+            searchDatas(){
+                this.$router.push({
+                    path: `/search`,
+                    query:{
+                        k:this.searchKey
+                    }
                 })
             }
         }

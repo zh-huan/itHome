@@ -4,13 +4,21 @@ const Config=require("./config/config.js");
 const views = require('koa-views');
 const router = require('./router');
 const Result=require("./api/base/result.js");
-const bodyparser=require("koa-bodyparser")
-const static=require("koa-static")
+const bodyparser=require("koa-bodyparser");
+const history = require('./middleware/koa2-connect-history-api-fallback');
+const static=require("koa-static");
 // 配置模版引擎中间件
+// 适配vue history的中间件
+app.use(history({
+    verbose: true
+}));
+
 // 如果这样配置不修改html后缀g改成ejs
 //app.use(views('views',{extension:'ejs'}));
 app.use(views('public',{map:{html:'ejs'}}));
 app.use(static('../public'));
+//app.use(static('./public'));
+//app.use(static(__dirname + '../public'));
 
 //爬取数据的url配置
 app.context.config=Config;
@@ -19,14 +27,15 @@ app.context.Result=Result;
 
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
-    await next();
+    const start = new Date()
+    await next()
+    const ms = new Date() - start
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
-router.get('/:type',async (ctx)=>{
-    await ctx.render('index',{});
-});
-router.get('/',async (ctx)=>{
-    await ctx.render('index',{});
-});
+// router.get('/',async (ctx)=>{
+//     await ctx.render('index',{});
+// });
+
 //接收post参数
 app.use(bodyparser());
 // 作用:启动路由

@@ -77,7 +77,7 @@
             getSubType() {
                 // 并且响应成功以后会执行then方法中的回调函数
                 let type = this.$route.params.type;
-                this.$ajax("/index/getsubType", {type: type}, "POST").then((result) => {
+                this.$ajax("/api/index/getsubType", {type: type}, "POST").then((result) => {
                     this.subTypes = result.datas;
                     if (this.subTypes && this.subTypes.length) {
                         this.changeSubType(this.subTypes[0]);
@@ -98,7 +98,7 @@
             },
             getPageDatas(params,needClear) {
                 let type = this.$route.params.type;
-                this.$ajax(`/${type}/index`, params, "POST").then((result) => {
+                this.$ajax(`/api/${type}/index`, params, "POST").then((result) => {
                     if (result.datas) {
                         //切换类型的时候清空数据,滚动条跳到最顶
                         if(needClear){

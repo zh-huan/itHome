@@ -28,10 +28,7 @@
              "index":"https://www.csdn.net/",
              "blog":"https://blog.csdn.net/",
          },
-        search:{
-            "全部": "https://so.csdn.net/so/search/s.do?q={searchSt}&t=&o=&s=&l=",
-            "博客": "https://so.csdn.net/so/search/s.do?q={searchSt}&t=blog&o=&s=&l="
-        }
+        search:["https://so.csdn.net/so/search/s.do?q={searchSt}&t=&o=&s=&l="]
      },
      "blog": {
          index:{
@@ -43,10 +40,10 @@
              "lang":"https://www.cnblogs.com/cate/2/",
              "soft":"https://www.cnblogs.com/cate/108701/"
          },
-         search:{
-             "新闻": "https://zzk.cnblogs.com/s/news?w={searchSt}",
-             "博客": "https://zzk.cnblogs.com/s/blogpost?w={searchSt}"
-         }
+         search:[
+             "https://zzk.cnblogs.com/s/news?w={searchSt}",
+             "https://zzk.cnblogs.com/s/blogpost?w={searchSt}"
+         ]
 
      }
 }

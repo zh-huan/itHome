@@ -11,7 +11,13 @@ router.post("/index", async (ctx) => {
                 let pageIndex=params.pageIndex;
                 url="https://www.cnblogs.com/sitehome/p/"+pageIndex;
             }
-            let $ = await cheerioHelp.getCheerio(url);
+            let headers={
+                'Accept':'*/*',
+                'Accept-Encoding':'utf-8',  //这里设置返回的编码方式 设置其他的会是乱码
+                'Accept-Language':'zh-CN,zh;q=0.8',
+                'Connection':'keep-alive',
+            }
+            let $ = await cheerioHelp.getCheerio(url,headers);
             let bolgIndex = getBlogIndex($);
             ctx.body = result.setDatas(bolgIndex);
         } else {
