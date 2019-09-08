@@ -8,12 +8,12 @@ router.post("/searchData", async (ctx) => {
         for (let item of types) {
             let searchUrls = ctx.config[item.router].search;
             let getSearchDatas = require("../" + item.router + "/search.js");
-            let datas = getSearchDatas(searchUrls, params.k)
+            let datas = await getSearchDatas(searchUrls, params.k)
             searchDatas = searchDatas.concat(datas);
         }
         ctx.body = result.setDatas(searchDatas);
     } catch (e) {
-        ctx.body = result.setError(e);
+        ctx.body = result.setError(e.message);
     }
 })
 module.exports = router;

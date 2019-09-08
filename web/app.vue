@@ -15,9 +15,12 @@
             </div>
             <div class="login-wrap"></div>
         </div>
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
+        <div class="content clearfix">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </div>
+        
 
     </div>
 </template>

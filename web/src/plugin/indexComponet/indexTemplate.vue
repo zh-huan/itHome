@@ -1,5 +1,5 @@
 <template>
-    <div class="content clearfix" ref="indexContent">
+    <div  ref="indexContent">
         <nav class="content-type clearfix">
             <ul class="content-subtype">
                 <li class="content-subtype_item"
@@ -98,6 +98,8 @@
             },
             getPageDatas(params,needClear) {
                 let type = this.$route.params.type;
+                if(!type)
+                    return;
                 this.$ajax(`/api/${type}/index`, params, "POST").then((result) => {
                     if (result.datas) {
                         //切换类型的时候清空数据,滚动条跳到最顶
@@ -143,10 +145,6 @@
 </script>
 <style scoped lang="stylus">
 /****内容样式*****/
-.content
-    width: 100%;
-    padding: 50px 70px 10px 70px;
-
 .content-type
     position: fixed;
     float: left;
