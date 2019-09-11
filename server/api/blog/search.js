@@ -1,10 +1,9 @@
 const cheerioHelp = require("../base/cheerioHelp.js")
-
+const tool = require("../base/tool.js")
 async function getSearchDatas(searchUrls, key) {
     let searchList = [];
     for(let url of searchUrls){
         url=url.replace("{searchSt}",key);
-       // let url = "https://zzk.cnblogs.com/s/blogpost?w=123";
         var timespan=parseInt((new Date().getTime())/1000);
         let headers = {
         //     ':authority': 'zzk.cnblogs.com',
@@ -40,10 +39,10 @@ function getDatas($, searchList,key) {
         let $searchItem=$searchList.eq(i);
         let $title = $searchItem.find(".searchItemTitle");
         let title = $title.text();
-        title=repalceKey(key,title);
+        title=tool.repalceKey(key,title);
         let url = $title.find("a").attr("href");
         let con = $searchItem.find(".searchCon").text();
-        con=repalceKey(key,con);
+        con=tool.repalceKey(key,con);
         let $info = $searchItem.find(".searchItemInfo").eq(0);
         let author = $info.find(".searchItemInfo-userName").text();
         let authorUrl = $info.find(".searchItemInfo-userName").find("a").attr("href");
@@ -60,23 +59,12 @@ function getDatas($, searchList,key) {
             pushTime,
             good,
             comments,
-            views
+            views,
+            type:"博客园"
         };
         searchList.push(searchItem);
     }
 }
-function repalceKey(key,content){
-    let regWords=new RegExp(key,"gi");
-    let words=content.match(regWords);
-    if(!words)
-       return content;
-    words=[...new Set(words )]
-    for(let i=0;i<words.length;i++){
-        let word=words[i];
-        let regkey=new RegExp(word,"g");
-        content=content.replace(regkey,"<em>"+word+"</em>");
-    }
-    return content;
-}
+
 
 module.exports = getSearchDatas;

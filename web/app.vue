@@ -7,13 +7,19 @@
                     :class="{'selected': typeSelected==typeItem.name}" @click="typeClick(typeItem)">{{typeItem.name}}
                 </li>
             </ul>
+            
+            <div class="login-wrap">
+                <a class="login-item" href=""><i class="login-icon icon-blog"></i><span>写博客</span></a>
+                <a class="login-item" ><i class="login-icon icon-msg"></i><span>消息</span></a>
+                <a class="login-item"><span>登录</span></a>
+                <a class="login-item"><span>注册</span></a>
+            </div>
             <div class="search">
                 <input type="text" v-model="searchKey" placeholder="搜索"/>
                 <a class="search-link" @click="searchDatas()">
                     <i class="search-icon" ></i>
                 </a>
             </div>
-            <div class="login-wrap"></div>
         </div>
         <div class="content clearfix">
             <keep-alive>

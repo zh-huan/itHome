@@ -28,7 +28,7 @@
              "index":"https://www.csdn.net/",
              "blog":"https://blog.csdn.net/",
          },
-        search:["https://so.csdn.net/so/search/s.do?q={searchSt}&t=&o=&s=&l="]
+        search:["https://so.csdn.net/so/search/s.do?q={searchSt}&t=blog&o=&s=&l="]
      },
      "blog": {
          index:{
@@ -41,8 +41,8 @@
              "soft":"https://www.cnblogs.com/cate/108701/"
          },
          search:[
-             "https://zzk.cnblogs.com/s/news?w={searchSt}",
-             "https://zzk.cnblogs.com/s/blogpost?w={searchSt}"
+             "https://zzk.cnblogs.com/s/news?w={searchSt}"
+           //  "https://zzk.cnblogs.com/s/blogpost?w={searchSt}"
          ]
 
      }
