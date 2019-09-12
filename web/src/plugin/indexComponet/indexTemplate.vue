@@ -40,7 +40,7 @@
                     </div>
                 </li>
             </ul>
-
+          <contentLoading></contentLoading>
         </main>
         <aside class="content-aside clearfix">
         </aside>
@@ -126,6 +126,8 @@
         },
         watch: {
             "$route": function (to, from) {
+                if(this.$route.name!="index")
+                    return;
                 this.getSubType();
             }
         },

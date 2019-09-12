@@ -1,16 +1,20 @@
 <template>
-    <div class="search-list">
-        <ul>
-            <li v-for="searchItem in searchList" v-if="searchItem">
-                <div class="search-title" >
-                    <h3><a :href="searchItem.url" target="_blank" v-html="searchItem.title"></a></h3>
-                </div>
-                <div class="search-content" v-html="searchItem.con"></div>
-                <div class="search-footer"></div>
-            </li>
-        </ul>
-        <div class="pager"></div>
+    <div>
+        <div class="search-list">
+            <ul>
+                <li v-for="searchItem in searchList" v-if="searchItem">
+                    <div class="search-title" >
+                        <h3><a :href="searchItem.url" target="_blank" v-html="searchItem.title"></a></h3>
+                    </div>
+                    <div class="search-content" v-html="searchItem.con"></div>
+                    <div class="search-footer"></div>
+                </li>
+            </ul>
+            <div class="pager"></div>
+        </div>
+        <contentLoading></contentLoading>
     </div>
+
 </template>
 <script>
     export default {
@@ -27,10 +31,17 @@
                 this.$parent.loading = true;
                 this.$ajax("/api/search/searchData",this.$route.query,"POST").then(result=>{
                     this.searchList=result.datas;
-                    this.$parent.loading = true;
+                    this.$parent.loading = false;
                 }).catch(err=>{
                     console.log(err);
                 })
+            }
+        },
+        watch:{
+            "$route.query":function(to,fromv){
+                if(this.$route.name!="search")
+                    return;
+                this.getSearchData();
             }
         }
     }

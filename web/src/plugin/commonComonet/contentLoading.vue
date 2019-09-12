@@ -12,7 +12,8 @@
 </template>
 <style scoped lang="stylus">
     .post-list-loading
-        background-color: #fff;
+        width :200px;
+        margin : 0 auto;
         text-align: center;
         padding: 10px;
     .icon
