@@ -24,9 +24,10 @@
         },
         methods:{
             getSearchData(){
+                this.$parent.loading = true;
                 this.$ajax("/api/search/searchData",this.$route.query,"POST").then(result=>{
-                    console.log(result);
                     this.searchList=result.datas;
+                    this.$parent.loading = true;
                 }).catch(err=>{
                     console.log(err);
                 })
@@ -35,10 +36,7 @@
     }
 </script>
 <style scoped lang="stylus">
-.search-list 
-    em
-        font-style: normal;
-        color: #CA0C16;
+
 .search-title a
     max-width: 98%;
     color: #3d3d3d;
