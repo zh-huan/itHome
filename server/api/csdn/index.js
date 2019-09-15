@@ -21,17 +21,19 @@ router.post("/index", async (ctx) => {
                 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0'
             }
             let $ = await cheerioHelp.getCheerio(url,header);
-            let bolgIndex = getCsdnIndex($);
+            let bolgIndex = getCsdnIndex($,ctx);
             ctx.body = result.setDatas(bolgIndex);
         } else {
             ctx.body = result.setWarn("没有参数");
+            ctx.logger.console.warn("没有参数");
         }
     } catch (e) {
         ctx.body = result.setError(e.message);
+        ctx.logger.error("获取CSDN首页数据失败：",e.message);
     }
 });
 
-function getCsdnIndex($) {
+function getCsdnIndex($,ctx) {
     let $postList = $("#feedlist_id");
     let $postItems = $postList.find("li");
     let postList = [];
@@ -63,7 +65,7 @@ function getCsdnIndex($) {
         } 
     }
     catch(e){
-        console.log(e);
+        ctx.logger.error("CSDN首页数据解析错误",e.message);
     }
     return {
         postList

@@ -1,6 +1,7 @@
 ##ignore this file##
 /.idea/ 
 /node_modules/ 
+/server/logs/ 
 .classpath
 .project
 .settings      
