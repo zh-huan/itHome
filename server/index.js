@@ -12,6 +12,12 @@ const ip=require("ip");
 // 配置模版引擎中间件
 // 适配vue history的中间件
 app.use(history({
+    rewrites: [
+        {
+            from: /^\/login/,
+            to: "/login.html"
+        }
+    ],
     verbose: true
 }));
 
