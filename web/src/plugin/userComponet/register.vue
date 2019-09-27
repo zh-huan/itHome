@@ -18,7 +18,7 @@
             <input type="text" v-model="userName" placeholder="不少于2个字符"/>
         </div>
         <div class="user-regiset_item">
-            <label>密&nbsp;&nbsp;码</label>
+            <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
             <input type="password" v-model="password" placeholder="至少8位"/>
         </div>
         <div class="user-regiset_item">
