@@ -34,24 +34,6 @@ module.exports = {
     module: {
         //加载器配置
         rules: [
-            /*
-            {
-                test:/\.js$/,
-                exclude:/(node_modules|static_dev\script\lib)/,
-                use:{
-                    loader:'babel-loader',
-                    options:{
-                        presets:['env'],
-                        plugins:[
-                            "syntax-dynamic-import",
-                            //"transform-object-rest-spread",
-                            //"transform-class-properties",
-                            "transform-runtime",
-                        ]
-                    }
-                }
-            },
-            */
             {test:/\.vue$/,use:'vue-loader'},
             {
                 test: /\.(html)$/,
@@ -72,17 +54,18 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|eot|svg|ttf|woff)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 1,
-                            fallback: 'file-loader',
-                            name: '[name].[hash:7].[ext]',
-                            outputPath:'dist/web/images/',
-                        }
-                    }
-                ],
+                loader: 'url-loader'
+                // use: [
+                //     {
+                //         loader: 'url-loader',
+                //         options: {
+                //             limit: 1,
+                //             fallback: 'file-loader',
+                //             name: '[name].[hash:7].[ext]',
+                //             outputPath:'dist/web/images/',
+                //         }
+                //     }
+                // ],
             }
         ]
     },

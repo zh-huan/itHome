@@ -1,56 +1,145 @@
 <template>
-    <div>
-        <div class="user-regiset_item">
-            <label>注册邮箱</label>
-            <input type="text" v-model="email" placeholder="需要通过邮箱激活账号"/>
-        </div>
-        <div class="user-regiset_item">
-            <label>手机号码</label>
-            <input type="text" v-model="prePhone"/>
-            <input type="text" v-model="email" placeholder="需要通过邮箱激活账号"/>
-        </div>
-        <div class="user-regiset_item">
-            <label>登陆名称</label>
-            <input type="text" v-model="loginName" placeholder="登陆用户名，不少于4个字符"/>
-        </div>
-        <div class="user-regiset_item">
-            <label>显示昵称</label>
-            <input type="text" v-model="userName" placeholder="不少于2个字符"/>
-        </div>
-        <div class="user-regiset_item">
-            <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-            <input type="password" v-model="password" placeholder="至少8位"/>
-        </div>
-        <div class="user-regiset_item">
-            <label>确认密码</label>
-            <input type="password" v-model="confirmpwd" placeholder="请输入确认密码"/>
-        </div>
-        <div class="user-regiset_item">
-            <button>注册</button>
-        </div>
-        <div class="user-regiset_item">
-            <p class="tips">﹡点击 “注册” 按钮，即表示您同意并愿意遵守<a>用户协议</a> 。</p>
+    <div class="regist-content">
+        <div class="regist-title">新用户注册</div>
+        <div>
+            <el-form
+                :model="userInfo"
+                status-icon
+                ref="userInfo"
+                label-width="100px"
+                class="regist-form"
+            >
+                <el-form-item
+                    label="注册邮箱"
+                    prop="email"
+                    :rules="[
+                            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+                        ]"
+                >
+                    <el-input type="email" v-model="userInfo.email" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="手机号码"
+                    prop="prePhone"
+                    :rules="[
+                            { required: true, message: '请输入手机号码', trigger: 'blur' },
+                            { type: 'phone', message: '请输入正确的手机号码', trigger: 'blur,change' }
+                        ]"
+                >
+                    <el-col :span="4">
+                        <el-input type="prePhone" v-model="userInfo.prePhone" autocomplete="off"></el-input>
+                    </el-col>
+                    <el-col :span="20">
+                        <el-input type="phone" v-model="userInfo.phone" autocomplete="off"></el-input>
+                    </el-col>
+                </el-form-item>
+                <el-form-item
+                    label="登陆名称"
+                    prop="loginName"
+                    :rules="[
+                            { required: true, message: '请输入登陆名称', trigger: 'blur' },
+                        ]"
+                >
+                    <el-input type="loginName" v-model="userInfo.loginName" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="显示昵称"
+                    prop="userName"
+                    :rules="[
+                            { required: true, message: '请输入显示昵称', trigger: 'blur' },
+                        ]"
+                >
+                    <el-input type="userName" v-model="userInfo.userName" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="密    码"
+                    prop="password"
+                    :rules="[
+                            { required: true, message: '请输入密码', trigger: 'blur' },
+                            {  validator: this.validatePass, trigger: 'blur' }
+                        ]"
+                >
+                    <el-input type="password" v-model="userInfo.password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="确认密码"
+                    prop="confirmpwd"
+                    :rules="[
+                            { required: true, message: '请输入确认密码', trigger: 'blur' },
+                            {  validator: this.validatePass2, trigger: 'blur' }
+                        ]"
+                >
+                    <el-input type="password" v-model="userInfo.confirmpwd" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-checkbox type="checkbox">是否同意并愿意遵守
+                        <span class="regist-agree">用户协议</span> 。</el-checkbox>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                    
+                </el-form-item>
+            </el-form>
+            <div class="regist"></div>
         </div>
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
+export default {
+    data() {
+        var validatePass = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请输入密码"));
+            } else {
+                if (this.userInfo.confirmpwd !== "") {
+                    this.$refs.userInfo.validateField("confirmpwd");
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请再次输入密码"));
+            } else if (value !== this.userInfo.password) {
+                callback(new Error("两次输入密码不一致!"));
+            } else {
+                callback();
+            }
+        };
+        return {
+            // registRules: {
+            //     password: [{ validator: validatePass, trigger: "blur" }],
+            //     confirmpwd: [{ validator: validatePass2, trigger: "blur" }]
+            // },
+            validatePass: validatePass,
+            validatePass2: validatePass2,
+            userInfo: {
                 userName: "",
                 loginName: "",
                 password: "",
                 confirmpwd: "",
                 email: "",
                 phone: "",
-                prePhone:"+86",
+                prePhone: "+86"
             }
-        },
-        mounted(){
-
-        },
-        methods:{
-
-        }
-    }
+        };
+    },
+    mounted() {},
+    methods: {}
+};
 </script>
+<style lang="stylus" scoped>
+.regist-content
+    max-width 856px
+    margin 0 auto
+.regist-title
+    font-size 21px
+    color #212529
+    padding 20px 0 10px 15px
+    border-bottom 1px solid rgba(0, 0, 0, 0.1)
+.regist-form
+    display inline-block
+    width 60%
+    padding 13px
+</style>

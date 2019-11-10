@@ -39,7 +39,6 @@
         },
         watch:{
             "$route.name": function (to, from) {
-                console.log(to, from);
                 this.getSelected();
             }
         }

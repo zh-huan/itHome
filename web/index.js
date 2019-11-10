@@ -8,6 +8,8 @@ import contentLoading from "./src/plugin/commonComonet/contentLoading.vue"
 Vue.component("loading",loading);
 Vue.component("contentLoading",contentLoading);
 Vue.use(VueRouter);
+
+
 Vue.prototype.$ajax = ajax;
 
 let v=new Vue({
