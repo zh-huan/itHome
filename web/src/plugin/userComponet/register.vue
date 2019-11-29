@@ -1,88 +1,102 @@
 <template>
     <div class="regist-content">
-        <div class="regist-title">新用户注册</div>
         <div>
-            <el-form
-                :model="userInfo"
-                status-icon
-                ref="userInfo"
-                label-width="100px"
-                class="regist-form"
-            >
-                <el-form-item
-                    label="注册邮箱"
-                    prop="email"
-                    :rules="[
+            <div class="regist-title">新用户注册</div>
+            <div>
+                <el-form
+                    :model="userInfo"
+                    status-icon
+                    ref="userInfo"
+                    label-width="100px"
+                    class="regist-form"
+                >
+                    <el-form-item
+                        label="注册邮箱"
+                        prop="email"
+                        :rules="[
                             { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                             { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
                         ]"
-                >
-                    <el-input type="email" v-model="userInfo.email" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                    label="手机号码"
-                    prop="prePhone"
-                    :rules="[
+                    >
+                        <el-input type="email" v-model="userInfo.email" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        label="手机号码"
+                        prop="prePhone"
+                        :rules="[
                             { required: true, message: '请输入手机号码', trigger: 'blur' },
                             { type: 'phone', message: '请输入正确的手机号码', trigger: 'blur,change' }
                         ]"
-                >
-                    <el-col :span="4">
-                        <el-input type="prePhone" v-model="userInfo.prePhone" autocomplete="off"></el-input>
-                    </el-col>
-                    <el-col :span="20">
-                        <el-input type="phone" v-model="userInfo.phone" autocomplete="off"></el-input>
-                    </el-col>
-                </el-form-item>
-                <el-form-item
-                    label="登陆名称"
-                    prop="loginName"
-                    :rules="[
+                    >
+                        <el-col :span="4">
+                            <el-input
+                                type="prePhone"
+                                v-model="userInfo.prePhone"
+                                autocomplete="off"
+                            ></el-input>
+                        </el-col>
+                        <el-col :span="20">
+                            <el-input type="phone" v-model="userInfo.phone" autocomplete="off"></el-input>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item
+                        label="登陆名称"
+                        prop="loginName"
+                        :rules="[
                             { required: true, message: '请输入登陆名称', trigger: 'blur' },
                         ]"
-                >
-                    <el-input type="loginName" v-model="userInfo.loginName" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                    label="显示昵称"
-                    prop="userName"
-                    :rules="[
+                    >
+                        <el-input type="loginName" v-model="userInfo.loginName" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        label="显示昵称"
+                        prop="userName"
+                        :rules="[
                             { required: true, message: '请输入显示昵称', trigger: 'blur' },
                         ]"
-                >
-                    <el-input type="userName" v-model="userInfo.userName" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                    label="密    码"
-                    prop="password"
-                    :rules="[
+                    >
+                        <el-input type="userName" v-model="userInfo.userName" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        label="密    码"
+                        prop="password"
+                        :rules="[
                             { required: true, message: '请输入密码', trigger: 'blur' },
                             {  validator: this.validatePass, trigger: 'blur' }
                         ]"
-                >
-                    <el-input type="password" v-model="userInfo.password" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                    label="确认密码"
-                    prop="confirmpwd"
-                    :rules="[
+                    >
+                        <el-input type="password" v-model="userInfo.password" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        label="确认密码"
+                        prop="confirmpwd"
+                        :rules="[
                             { required: true, message: '请输入确认密码', trigger: 'blur' },
                             {  validator: this.validatePass2, trigger: 'blur' }
                         ]"
-                >
-                    <el-input type="password" v-model="userInfo.confirmpwd" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-checkbox type="checkbox">是否同意并愿意遵守
-                        <span class="regist-agree">用户协议</span> 。</el-checkbox>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
-                    
-                </el-form-item>
-            </el-form>
-            <div class="regist"></div>
+                    >
+                        <el-input type="password" v-model="userInfo.confirmpwd" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-checkbox type="checkbox" v-model="checked">
+                            是否同意并愿意遵守
+                            <span class="regist-agree">用户协议</span> 。
+                        </el-checkbox>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                    </el-form-item>
+                </el-form>
+                <div class="regist"></div>
+            </div>
+            <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+                <span>请先查阅“用户协议”，并同意用户协议</span>
+                <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+            </el-dialog>
         </div>
+        <div class="regist-success" v-if="success"></div>
     </div>
 </template>
 <script>
@@ -108,12 +122,10 @@ export default {
             }
         };
         return {
-            // registRules: {
-            //     password: [{ validator: validatePass, trigger: "blur" }],
-            //     confirmpwd: [{ validator: validatePass2, trigger: "blur" }]
-            // },
             validatePass: validatePass,
             validatePass2: validatePass2,
+            dialogVisible: false,
+            checked: false,
             userInfo: {
                 userName: "",
                 loginName: "",
@@ -122,11 +134,26 @@ export default {
                 email: "",
                 phone: "",
                 prePhone: "+86"
-            }
+            },
+            success: false
         };
     },
     mounted() {},
-    methods: {}
+    methods: {
+        submitForm() {
+            if (!this.checked) {
+                this.dialogVisible = true;
+                return;
+            }
+            this.$ajax(`/api/user/regist`, this.userInfo, "POST")
+                .then(result => {
+                    if (result.type === 1 && result.datas > 0) {
+                        this.success = true;
+                    }
+                })
+                .catch(err => {});
+        }
+    }
 };
 </script>
 <style lang="stylus" scoped>

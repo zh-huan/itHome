@@ -7,13 +7,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(VueRouter);
 Vue.prototype.$ajax = ajax;
 
-import { Form, FormItem,Button,Input,Col,Checkbox } from 'element-ui';
+import { Form, FormItem,Button,Input,Col,Checkbox,Dialog } from 'element-ui';
 Vue.component(Form.name,Form);
 Vue.component(FormItem.name,FormItem);
 Vue.component(Button.name,Button);
 Vue.component(Input.name,Input);
 Vue.component(Col.name,Col);
 Vue.component(Checkbox.name,Checkbox);
+Vue.component(Dialog.name,Dialog);
 let v=new Vue({
     el:"#app",
     router:router,

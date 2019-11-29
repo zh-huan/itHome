@@ -1,4 +1,5 @@
-export default {
-    key="MDSESAB",
-    iv="MDSESAB"
+const key = {
+    key: "MDSESAB",
+    iv: "MDSESAB"
 }
+export default key

@@ -4,6 +4,7 @@
             <ul class="content-subtype">
                 <li class="content-subtype_item"
                     v-for="subItem in subTypes"
+                    :key="subItem.name"
                     :class="{'selected': subTypeSelected.name==subItem.name}"
                     @click="changeSubType(subItem)">{{subItem.name}}
                 </li>
@@ -11,7 +12,7 @@
         </nav>
         <main class="content-list clearfix">
             <ul class="post-list">
-                <li class="post-list_item" v-for="postItem in postList">
+                <li class="post-list_item" v-for="postItem in postList" :key="postItem.title">
                     <div class="post-title">
                         <h2><a :href="postItem.url" target="_blank">{{postItem.title}}</a></h2>
                     </div>
@@ -21,7 +22,7 @@
                     <div class="post-footer clearfix">
                         <div class="post-author">
                             <a :href="postItem.authorUrl" target="_blank" class="post-author_info">
-                                <img v-if="postItem.img" :src="postItem.img">
+                                <img v-if="postItem.img" :src="postItem.img" alt=''>
                                 <span class="text">{{postItem.author}}</span></a>
                             <div class="interval"></div>
                             <span class="post-publish_info text">{{postItem.time}}</span>
