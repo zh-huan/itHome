@@ -1,4 +1,4 @@
 module.exports={
-    key="MDSESAB",
-    iv="MDSESAB"
+    key: "MDSESABMDSESABCC",
+    iv: "MDSESABMDSESABCC"
 }

@@ -9,7 +9,7 @@ export default function ajax(url = '', data = {}, type = 'GET') {
             // 准备 url query 参数数据
             let dataStr = '' // 数据拼接字符串，将data连接到url
             Object.keys(data).forEach(key => {
-                dataStr += key + '=' +aes.encryption(data[key]) + '&'
+                dataStr += key + '=' + aes.encryption(data[key]) + '&'
             })
             if (dataStr !== '') {
                 dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
@@ -19,8 +19,11 @@ export default function ajax(url = '', data = {}, type = 'GET') {
             promise = axios.get(url)
         } else {
             // 发送 post 请求
-            data=aes.encryption(data);
-            promise = axios.post(url, data)
+            let param = {};
+            if (data) {
+                param.encode = aes.encryption(data);
+            }
+            promise = axios.post(url, param)
         }
         promise.then(response => {
             // 成功回调resolve()

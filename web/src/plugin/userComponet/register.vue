@@ -15,7 +15,7 @@
                         prop="email"
                         :rules="[
                             { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-                            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+                            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
                         ]"
                     >
                         <el-input type="email" v-model="userInfo.email" autocomplete="off"></el-input>

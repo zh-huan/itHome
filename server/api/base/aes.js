@@ -10,7 +10,10 @@ const aesutil = module.exports = {};
  * @returns {string}
  */
 aesutil.encryption = function (data, key, iv) {
-    let aeskeys = getKeys(key, iv);
+    let aeskeys = this.getKeys(key, iv);
+    if (typeof data === "object") {
+        data = JSON.stringify(data);
+    }
     var encrypted = CryptoJS.AES.encrypt(data, aeskeys.key, {
         iv: aeskeys.iv,
         mode: CryptoJS.mode.CBC,
@@ -30,14 +33,15 @@ aesutil.decryption = function (data, key, iv) {
     if (!data) {
         return "";
     }
-    let aeskeys = getKeys(key, iv);
+    let aeskeys = this.getKeys(key, iv);
     // 解密
     var decrypted = CryptoJS.AES.decrypt(data, aeskeys.key, {
         iv: aeskeys.iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
-    return CryptoJS.enc.Utf8.stringify(decrypted);
+    var result = CryptoJS.enc.Utf8.stringify(decrypted);
+    return result;
 }
 aesutil.getKeys = function (key, iv) {
     iv = iv || "";

@@ -1,5 +1,5 @@
 const key = {
-    key: "MDSESAB",
-    iv: "MDSESAB"
+    key: "MDSESABMDSESABCC",
+    iv: "MDSESABMDSESABCC"
 }
 export default key

@@ -10,7 +10,10 @@ const aes = {};
  */
 aes.encryption = function (data, key, iv) {
     let aeskeys = getKeys(key, iv);
-    var encrypted = CryptoJS.AES.encrypt(data, aeskeys.key, {
+    if(typeof data === 'object'){
+        data = JSON.stringify(data);
+    }
+    let encrypted = CryptoJS.AES.encrypt(data, aeskeys.key, {
         iv: aeskeys.iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
@@ -35,7 +38,9 @@ aes.decryption = function (data, key, iv) {
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
-    return CryptoJS.enc.Utf8.stringify(decrypted);
+    //return CryptoJS.enc.Utf8.stringify(decrypted);
+    let decryptedStr = decrypted.toString(CryptoJS.enc.Utf8);
+    return decryptedStr.toString();
 }
 function getKeys(key, iv) {
     iv = iv || "";
