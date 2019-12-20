@@ -8,6 +8,7 @@ class userModel {
         this.password = "";
         this.email = "";
         this.phone = "";
+        this.time = "";
     }
     async add(user) {
         if (!user) {
@@ -19,6 +20,7 @@ class userModel {
                 phone: this.phone,
             }
         }
+        user.time = (new Date()).format("yyyy-MM-dd HH:mm:ss");
         let result = await dbHelper.insertOne(this.tbName, user);
         return result;
     }

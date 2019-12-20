@@ -66,7 +66,6 @@ function saveImage(url) {
                 fs.writeFile(file, imgData, "binary", function (err) {
                     if (err) {
                         console.log(err);
-                    } else {
                     }
                 });
             });

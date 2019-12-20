@@ -1,18 +1,17 @@
-const {
-    dbinfo
-} = require("../../config/baseInfo.js");
+const {dbInfo} = require("../../config/baseInfo.js");
 const MongoClient = require('mongodb').MongoClient;
 class mongodbHelper {
     /***连接数据库***/
     connection() {
-        return Promise(function (resolve, reject) {
-            var url = `mongodb://${dbinfo.host}:${dbinfo.port}/${dbinfo.dbName}`;
+        return new Promise(function (resolve, reject) {
+            var url = `mongodb://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}`;
             MongoClient.connect(url, {
                 useNewUrlParser: true
             }, function (err, db) {
                 if (err) {
                     reject(err);
                 }
+                console.log("连接成功！",url);
                 resolve(db);
             });
         })
@@ -28,9 +27,9 @@ class mongodbHelper {
      * collectionName：集合名称
      * **/
     createCollection(collectionName) {
-        return Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             this.connection().then(db => {
-                var dbase = db.db(dbinfo.dbName);
+                var dbase = db.db(dbInfo.dbName);
                 dbase.createCollection(collectionName, function (err, res) {
                     if (err) {
                         reject(err);
@@ -49,9 +48,9 @@ class mongodbHelper {
      * data：数据，Object
      * */
     insertOne(collectionName, data) {
-        return Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             this.connection().then(db => {
-                var dbase = db.db(dbinfo.dbName);
+                var dbase = db.db(dbInfo.dbName);
                 dbase.collection(collectionName).insertOne(data, function (err, res) {
                     if (err) {
                         reject(err);
@@ -69,9 +68,9 @@ class mongodbHelper {
      *datas：数据，Array
      ****/
     insertMany(collectionName, datas) {
-        return Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             this.connection().then(db => {
-                var dbase = db.db(dbinfo.dbName);
+                var dbase = db.db(dbInfo.dbName);
                 dbase.collection(collectionName).insertMany(datas, function (err, res) {
                     if (err) {
                         reject(err);
@@ -89,9 +88,9 @@ class mongodbHelper {
      *search：查询条件
      * **/
     find(collectionName, search) {
-        return Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             this.connection().then(db => {
-                var dbase = db.db(dbinfo.dbName);
+                var dbase = db.db(dbInfo.dbName);
                 dbase.collection(collectionName).find(search).toArray(function (err, result) {
                     if (err) {
                         reject(err);

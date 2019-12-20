@@ -1,6 +1,6 @@
 <template>
     <div class="regist-content">
-        <div>
+        <div v-if="!success">
             <div class="regist-title">新用户注册</div>
             <div>
                 <el-form
@@ -96,7 +96,9 @@
                 </span>
             </el-dialog>
         </div>
-        <div class="regist-success" v-if="success"></div>
+        <div class="regist-success" v-if="success">
+            <div>账号注册成功，点击<a href="/login">登录</a></div>
+        </div>
     </div>
 </template>
 <script>

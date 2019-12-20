@@ -73,6 +73,7 @@ module.exports = {
         //模块别名定义
         alias: {
             'vue': 'vue/dist/vue.js',
+            '@':path.join(__dirname,"./web/src/")
         }
     }
 };
