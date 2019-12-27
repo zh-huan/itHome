@@ -1,4 +1,4 @@
-const {dbInfo} = require("../../config/baseInfo.js");
+const {dbInfo} = require("../../config/server.config.js");
 const MongoClient = require('mongodb').MongoClient;
 class mongodbHelper {
     /***连接数据库***/
@@ -6,6 +6,7 @@ class mongodbHelper {
         return new Promise(function (resolve, reject) {
             var url = `mongodb://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}`;
             MongoClient.connect(url, {
+                useUnifiedTopology: true,
                 useNewUrlParser: true
             }, function (err, db) {
                 if (err) {

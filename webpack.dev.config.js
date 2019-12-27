@@ -8,7 +8,7 @@ module.exports = {
     //页面入口文件配置
     entry: {
         index: "./web/index.js",
-        login:"./web/login.js"
+        login: "./web/login.js"
     },
     //入口文件输出配置
     output: {
@@ -21,11 +21,11 @@ module.exports = {
     //cheap-module-source-map 在一个单独的文件中产生一个不带列映射的Map
     //eval-source-map 使用eval打包源文件模块,在同一个文件中生成完整sourcemap
     //cheap-module-eval-source-map sourcemap和打包后的JS同行显示，没有映射列
-    devServer:{
+    devServer: {
         contentBase: './static_dev',
         port: 8900,
-        compress: true,// 服务器压缩
-        open: false,// 自动打开浏览器
+        compress: true, // 服务器压缩
+        open: false, // 自动打开浏览器
         host: '0.0.0.0',
     },
     plugins: [
@@ -33,8 +33,10 @@ module.exports = {
     ],
     module: {
         //加载器配置
-        rules: [
-            {test:/\.vue$/,use:'vue-loader'},
+        rules: [{
+                test: /\.vue$/,
+                use: 'vue-loader'
+            },
             {
                 test: /\.(html)$/,
                 use: {
@@ -43,14 +45,17 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" }
+                use: [{
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    }
                 ]
             },
             {
                 test: /\.styl(us)?$/,
-                use: ['vue-style-loader','css-loader','stylus-loader'],
+                use: ['vue-style-loader', 'css-loader', 'stylus-loader'],
             },
             {
                 test: /\.(png|jpg|gif|eot|svg|ttf|woff)$/,
@@ -73,7 +78,7 @@ module.exports = {
         //模块别名定义
         alias: {
             'vue': 'vue/dist/vue.js',
-            '@':path.join(__dirname,"./web/src/")
+            '@': path.join(__dirname, './web/src')
         }
     }
 };

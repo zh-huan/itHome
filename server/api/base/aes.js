@@ -1,5 +1,5 @@
 const CryptoJS = require('crypto-js');
-const aeskey = require('../../config/aeskey.js');
+const {aeskey} = require('../../config/server.config.js');
 const aesutil = module.exports = {};
 
 /**

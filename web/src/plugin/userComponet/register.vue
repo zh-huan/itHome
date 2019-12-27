@@ -22,7 +22,7 @@
                     </el-form-item>
                     <el-form-item
                         label="手机号码"
-                        prop="prePhone"
+                        prop="phone"
                         :rules="[
                             { required: true, message: '请输入手机号码', trigger: 'blur' },
                             { type: 'phone', message: '请输入正确的手机号码', trigger: 'blur,change' }
@@ -44,6 +44,7 @@
                         prop="loginName"
                         :rules="[
                             { required: true, message: '请输入登陆名称', trigger: 'blur' },
+                            { validator:loginNameValidate, trigger: 'blur'}
                         ]"
                     >
                         <el-input type="loginName" v-model="userInfo.loginName" autocomplete="off"></el-input>
@@ -53,6 +54,7 @@
                         prop="userName"
                         :rules="[
                             { required: true, message: '请输入显示昵称', trigger: 'blur' },
+                            { validator:userNameValidate, trigger: 'blur'}
                         ]"
                     >
                         <el-input type="userName" v-model="userInfo.userName" autocomplete="off"></el-input>
@@ -97,35 +99,21 @@
             </el-dialog>
         </div>
         <div class="regist-success" v-if="success">
-            <div>账号注册成功，点击<a href="/login">登录</a></div>
+            <div>
+                账号注册成功，点击
+                <a class="goto-login" href="/login">登录</a>
+            </div>
         </div>
     </div>
 </template>
 <script>
 export default {
     data() {
-        var validatePass = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请输入密码"));
-            } else {
-                if (this.userInfo.confirmpwd !== "") {
-                    this.$refs.userInfo.validateField("confirmpwd");
-                }
-                callback();
-            }
-        };
-        var validatePass2 = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请再次输入密码"));
-            } else if (value !== this.userInfo.password) {
-                callback(new Error("两次输入密码不一致!"));
-            } else {
-                callback();
-            }
-        };
         return {
-            validatePass: validatePass,
-            validatePass2: validatePass2,
+            validatePass: this.validatePassfunc,
+            validatePass2: this.validatePass2func,
+            loginNameValidate: this.loginNameValidatefunc,
+            userNameValidate: this.userNameValidatefunc,
             dialogVisible: false,
             checked: false,
             userInfo: {
@@ -154,6 +142,58 @@ export default {
                     }
                 })
                 .catch(err => {});
+        },
+        validatePassfunc(rule, value, callback) {
+            if (value === "") {
+                callback(new Error("请输入密码"));
+            } else {
+                if (this.userInfo.confirmpwd !== "") {
+                    this.$refs.userInfo.validateField("confirmpwd");
+                }
+                callback();
+            }
+        },
+        validatePass2func(rule, value, callback) {
+            if (value === "") {
+                callback(new Error("请再次输入密码"));
+            } else if (value !== this.userInfo.password) {
+                callback(new Error("两次输入密码不一致!"));
+            } else {
+                callback();
+            }
+        },
+        loginNameValidatefunc(rule, value, callback) {
+            this.validateName(
+                value,
+                callback,
+                "loginName",
+                "登录名称不能重复，请重新输入"
+            );
+        },
+        userNameValidatefunc(rule, value, callback) {
+            this.validateName(
+                value,
+                callback,
+                "userName",
+                "昵称名称不能重复，请重新输入"
+            );
+        },
+        validateName(value, callback, keyName, tips) {
+            let param = {};
+            param[keyName] = value;
+            this.$ajax("/api/user/getUser", param, "POST")
+                .then(result => {
+                    if (result.type === 1) {
+                        if (result.datas && result.datas.length > 0) {
+                            callback(new Error(tips));
+                        } else {
+                            callback();
+                        }
+                    }
+                })
+                .catch(err => {
+                    callback(new Error(err));
+                });
         }
     }
 };
