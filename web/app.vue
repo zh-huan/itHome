@@ -55,19 +55,36 @@ export default {
         };
     },
     mounted() {
-        // 并且响应成功以后会执行then方法中的回调函数
-        this.$ajax("/api/index/getType", null, "post")
-            .then(result => {
-                this.types = result.datas;
-                if (this.types && this.types.length) {
-                    this.getSelected(this.types);
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        //获取基础信息（登录用户信息等）
+        this.getCommonInfo();
+        //获取类型信息
+        this.getType();
     },
     methods: {
+        getCommonInfo() {
+            this.$ajax("/api/getCommonInfo", null, "post")
+                .then(result => {
+                    let commonInfo = result.datas;
+                    if (commonInfo) {
+                        this.$store.commit("setUser", commonInfo.userInfo);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        },
+        getType() {
+            this.$ajax("/api/index/getType", null, "post")
+                .then(result => {
+                    this.types = result.datas;
+                    if (this.types && this.types.length) {
+                        this.getSelected(this.types);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        },
         getSelected(types) {
             let type = this.$route.params.type;
             if (!type && this.$route.name == "index") {

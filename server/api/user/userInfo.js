@@ -1,17 +1,15 @@
 const router = require("koa-router")();
 const UserModel = require("../../model/userModel.js");
-const {
-    sign
-} = require("jsonwebtoken");
 const Aes = require("../base/aes.js");
 const {
-    tokenConfig
-} = require("../../config/server.config.js")
+    signToken
+} = require("../../utils/tokenUtil.js");
+
 router.post('/regist', async (ctx) => {
     let result = new ctx.Result();
     try {
         let user = new UserModel();
-        let userInfo = ctx.request.body;
+        let userInfo = ctx.request.body.userInfo;
         let ret = await user.add(userInfo);
         ctx.body = result.setDatas(ret);
     } catch (e) {
@@ -22,15 +20,13 @@ router.post('/login', async (ctx) => {
     let result = new ctx.Result();
     try {
         let userModel = new UserModel();
-        let param = ctx.request.body;
+        let param = ctx.request.body.userInfo;
         param.password = Aes.encryption(param.password);
         let loginUser = await userModel.getOne(param);
         let token = "";
         if (loginUser && loginUser.userName) {
-            token = sign(loginUser, tokenConfig.secret, {
-                expiresIn: tokenConfig.expiresIn
-            })
             delete loginUser.password;
+            token = signToken(loginUser)
         }
         let rt = {
             loginUser,
@@ -45,7 +41,7 @@ router.post('/getUser', async (ctx) => {
     let result = new ctx.Result();
     try {
         let user = new UserModel();
-        let userInfo = ctx.request.body;
+        let userInfo = ctx.request.body.userInfo;
         let ret = await user.getList(userInfo);
         ctx.body = result.setDatas(ret);
     } catch (e) {

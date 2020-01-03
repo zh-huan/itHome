@@ -135,7 +135,7 @@ export default {
                 this.dialogVisible = true;
                 return;
             }
-            this.$ajax(`/api/user/regist`, this.userInfo, "POST")
+            this.$ajax(`/api/user/regist`, { userInfo: this.userInfo }, "POST")
                 .then(result => {
                     if (result.type === 1 && result.datas > 0) {
                         this.success = true;
@@ -181,7 +181,7 @@ export default {
         validateName(value, callback, keyName, tips) {
             let param = {};
             param[keyName] = value;
-            this.$ajax("/api/user/getUser", param, "POST")
+            this.$ajax("/api/user/getUser", { userInfo: param }, "POST")
                 .then(result => {
                     if (result.type === 1) {
                         if (result.datas && result.datas.length > 0) {

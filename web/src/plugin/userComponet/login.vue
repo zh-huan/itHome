@@ -42,17 +42,14 @@ export default {
     },
     methods: {
         login() {
-            this.$ajax(`/api/user/login`, this.userInfo, "POST")
+            this.$ajax(`/api/user/login`, { userInfo: this.userInfo }, "POST")
                 .then(result => {
                     if (result.type === 1 && result.datas) {
                         let datas = result.datas;
                         if (datas.token) {
-                            storageUtil.setItem("token",datas.token);
+                            storageUtil.setItem("token", datas.token);
                             this.loginFail = false;
-                            this.$store.commit("setUser", datas.loginUser);
-                            // this.$router.push({
-                            //     path: "/",
-                            // });
+                            window.location.href = "/";
                         } else {
                             this.loginFail = true;
                             this.loginTips = "用户名或密码错误";

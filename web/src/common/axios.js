@@ -1,5 +1,6 @@
 import axios from "axios"
 import aes from "./aes.js"
+import storageUtil from "./storageUtil.js"
 export default function ajax(url = '', data = {}, type = 'GET') {
     // 返回值 Promise对象 （异步返回的数据是response.data，而不是response）
     return new Promise(function (resolve, reject) {
@@ -12,7 +13,9 @@ export default function ajax(url = '', data = {}, type = 'GET') {
                 dataStr += key + '=' + aes.encryption(data[key]) + '&'
             })
             if (dataStr !== '') {
-                dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
+                //dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
+                let token = storageUtil.getItem("token");
+                dataStr = 'token=' + token;
                 url = url + '?' + dataStr
             }
             // 发送 get 请求
@@ -20,9 +23,12 @@ export default function ajax(url = '', data = {}, type = 'GET') {
         } else {
             // 发送 post 请求
             let param = {};
-            if (data) {
-                param.encode = aes.encryption(data);
+            if (!data) {
+                data = {};
             }
+            let token = storageUtil.getItem("token");
+            data.token = token;
+            param.encode = aes.encryption(data);
             promise = axios.post(url, param)
         }
         promise.then(response => {
