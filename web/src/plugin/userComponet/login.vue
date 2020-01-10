@@ -29,6 +29,8 @@
     </div>
 </template>
 <script>
+import { decryption } from "@/common/aes.js";
+import { getUrlParams } from "@/common/util.js";
 export default {
     data() {
         return {
@@ -42,6 +44,12 @@ export default {
     },
     methods: {
         login() {
+            let redirect = getUrlParams("redirect");
+            if (!redirect) {
+                redirect = "/";
+            } else {
+                redirect = decryption(redirect);
+            }
             this.$ajax(`/api/user/login`, { userInfo: this.userInfo }, "POST")
                 .then(result => {
                     if (result.type === 1 && result.datas) {
@@ -49,7 +57,7 @@ export default {
                         if (datas.token) {
                             storageUtil.setItem("token", datas.token);
                             this.loginFail = false;
-                            window.location.href = "/";
+                            window.location.href = redirect;
                         } else {
                             this.loginFail = true;
                             this.loginTips = "用户名或密码错误";

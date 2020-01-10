@@ -58,7 +58,7 @@ module.exports = {
                 use: ['vue-style-loader', 'css-loader', 'stylus-loader'],
             },
             {
-                test: /\.(png|jpg|gif|eot|svg|ttf|woff)$/,
+                test: /\.(png|jpg|gif|eot|svg|ttf|woff|woff2)$/,
                 loader: 'url-loader'
                 // use: [
                 //     {

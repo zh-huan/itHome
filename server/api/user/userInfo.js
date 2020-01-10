@@ -1,6 +1,10 @@
 const router = require("koa-router")();
-const UserModel = require("../../model/userModel.js");
+const UserModel = require("../../model/userModels/userInfoModel.js");
+const UserLoginModel = require("../../model/userModels/userLoginModel.js");
 const Aes = require("../base/aes.js");
+const {
+    getAddress
+} = require("../base/tool.js");
 const {
     signToken
 } = require("../../utils/tokenUtil.js");
@@ -21,18 +25,60 @@ router.post('/login', async (ctx) => {
     try {
         let userModel = new UserModel();
         let param = ctx.request.body.userInfo;
-        param.password = Aes.encryption(param.password);
+        let password = Aes.encryption(param.password);
+        delete param.password;
         let loginUser = await userModel.getOne(param);
         let token = "";
-        if (loginUser && loginUser.userName) {
+        if (loginUser && loginUser.userName && loginUser.password === password) {
             delete loginUser.password;
             token = signToken(loginUser)
+            let updateUser = {
+                loginState: 1,
+                loginTime: new Date()
+            };
+            try {
+                let address = await getAddress(ctx.request);
+                let userLoginModel = new UserLoginModel();
+                await userLoginModel.add({
+                    userId: loginUser.userId,
+                    loginIp: address && address.data ? address.data.ip : "",
+                    province: address && address.data ? address.data.region : "",
+                    city: address && address.data ? address.data.city : "",
+                    operators: address && address.data ? address.data.isp : ""
+                })
+            } catch (e) {
+                console.log(e);
+            }
+            userModel.update(loginUser, updateUser)
+            let rt = {
+                loginUser,
+                token
+            }
+            ctx.body = result.setDatas(rt);
+        } else if (loginUser && loginUser.userName) {
+            ctx.body = result.setError("用户名账号输入错误");
+        } else {
+            ctx.body = result.setError("不存在此账号，请先注册账号使用");
         }
-        let rt = {
-            loginUser,
-            token
+    } catch (e) {
+        ctx.body = result.setError(e.message);
+    }
+})
+
+router.post('/logOut', async (ctx) => {
+    let result = new ctx.Result();
+    try {
+        let userModel = new UserModel();
+        let param = ctx.request.body.userInfo;
+        let query = {
+            userId: param.userId,
+            userName: param.userName
         }
-        ctx.body = result.setDatas(rt);
+        let updateUser = {
+            loginState: 0
+        };
+        let rs = userModel.update(query, updateUser)
+        ctx.body = result.setDatas(rs);
     } catch (e) {
         ctx.body = result.setError(e.message);
     }

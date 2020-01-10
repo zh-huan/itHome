@@ -17,7 +17,8 @@ Vue.prototype.$ajax = ajax;
 
 import storageUtil from '@/common/storageUtil.js'
 window.storageUtil = storageUtil;
-
+import * as aes from "@/common/aes.js"
+window.aes = aes;
 import {
     Form,
     FormItem,

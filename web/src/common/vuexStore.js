@@ -1,9 +1,9 @@
 function vuexStore(Vuex) {
     let store = new Vuex.Store({
         state: {
-            user: {}
+            user: null
         },
-        getter: {
+        getters: {
             getCurrentUser: state => {
                 return state.user;
             }
@@ -11,6 +11,9 @@ function vuexStore(Vuex) {
         mutations: {
             setUser(state, user) {
                 state.user = user;
+            },
+            removeUser(state) {
+                state.user = null;
             }
         },
         actions: {

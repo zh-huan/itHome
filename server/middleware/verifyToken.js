@@ -11,22 +11,26 @@ async function verifyToken(ctx, next) {
     //传递的参数是否有token参数
     const token = ctx.request.body.token;
     try {
-        if(token){
+        if (token) {
             let playload = await jwt.verify(token, tokenConfig.secret);
-            let exp=playload.exp;
-            let now=(new Date().getTime());
-            if(exp*1000<=now){//超时
+            let exp = playload.exp;
+            let now = (new Date().getTime());
+            if (exp * 1000 <= now) { //超时
                 result.setWarn("登录超时，请重新登录");
-            }else{
+                ctx.status = 200;
+                ctx.body = result;
+            } else {
                 ctx.status = 200 //这里非常重要，只有设置了status，koa-router才识别请求正确继续进入路由
                 await next();
             }
-        }else{
+        } else {
             result.setWarn("还未登录");
+            ctx.status = 200;
+            ctx.body = result;
         }
-
     } catch (error) {
         result.setError(error);
+        ctx.status = 200
         ctx.body = result;
     }
 }

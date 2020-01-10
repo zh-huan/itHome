@@ -1,6 +1,11 @@
 import axios from "axios"
-import aes from "./aes.js"
+import {
+    encryption
+} from "./aes.js"
 import storageUtil from "./storageUtil.js"
+import {
+    tokenExpired
+} from "./util.js"
 export default function ajax(url = '', data = {}, type = 'GET') {
     // 返回值 Promise对象 （异步返回的数据是response.data，而不是response）
     return new Promise(function (resolve, reject) {
@@ -10,7 +15,7 @@ export default function ajax(url = '', data = {}, type = 'GET') {
             // 准备 url query 参数数据
             let dataStr = '' // 数据拼接字符串，将data连接到url
             Object.keys(data).forEach(key => {
-                dataStr += key + '=' + aes.encryption(data[key]) + '&'
+                dataStr += key + '=' + encryption(data[key]) + '&'
             })
             if (dataStr !== '') {
                 //dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
@@ -28,12 +33,14 @@ export default function ajax(url = '', data = {}, type = 'GET') {
             }
             let token = storageUtil.getItem("token");
             data.token = token;
-            param.encode = aes.encryption(data);
+            param.encode = encryption(data);
             promise = axios.post(url, param)
         }
         promise.then(response => {
+            tokenExpired(url, response.data);
             // 成功回调resolve()
             resolve(response.data)
+
         }).catch(error => {
             // 失败回调reject()
             reject(error)

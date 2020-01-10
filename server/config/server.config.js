@@ -12,14 +12,18 @@ const dbInfo = {
     dbName: "itHome"
 }
 //生成token的配置
-const tokenConfig={
-    secret:"itHome-dev",
-    expiresIn:"1h"
+const tokenConfig = {
+    secret: "itHome-dev",
+    expiresIn: "4h"
+}
+//通过ip获取地市的api接口
+const addressApiLink = {
+    url: "http://ip.taobao.com/service/getIpInfo.php"
 }
 
 module.exports = {
     aeskey,
     dbInfo,
-    tokenConfig
-
+    tokenConfig,
+    addressApiLink
 }

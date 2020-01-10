@@ -13,19 +13,21 @@ import ajax from "./src/common/axios.js"
 import App from "./app.vue"
 import router from "./router/router"
 
-import loading from "./src/plugin/commonComonet/loading.vue"
-Vue.component("loading",loading);
+import loading from "./src/plugin/commonComponet/loading.vue"
+Vue.component("loading", loading);
 
-import contentLoading from "./src/plugin/commonComonet/contentLoading.vue"
-Vue.component("contentLoading",contentLoading);
+import contentLoading from "./src/plugin/commonComponet/contentLoading.vue"
+Vue.component("contentLoading", contentLoading);
 
 import storageUtil from '@/common/storageUtil.js'
 window.storageUtil = storageUtil;
 
 Vue.prototype.$ajax = ajax;
-let v=new Vue({
-    el:"#app",
-    store:store,
-    router:router,
-    render:h=>h(App)
+
+import 'element-ui/lib/theme-chalk/index.css';
+let v = new Vue({
+    el: "#app",
+    store: store,
+    router: router,
+    render: h => h(App)
 })

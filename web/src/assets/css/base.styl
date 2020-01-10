@@ -1,115 +1,116 @@
 *
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
+    -webkit-box-sizing border-box
+    -moz-box-sizing border-box
+    box-sizing border-box
 body
-  background: #f5f6f7;
-  font-size: 16px;
-  overflow-x :hidden
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
+    background #f5f6f7
+    font-size 16px
+    overflow-x hidden
+    font-family 'Helvetica Neue', Helvetica, Arial, sans-serif
 body, ul, li
-  padding: 0;
-  margin: 0;
-
+    padding 0
+    margin 0
 ul
-  list-style-type: none;
-
+    list-style-type none
+button
+    cursor pointer
 .clearfix:after
-  content: '.';
-  height: 0;
-  visibility: hidden;
-  display: block;
-  clear: both;
-
+    content '.'
+    height 0
+    visibility hidden
+    display block
+    clear both
 a
-  color: #000;
-  cursor: pointer;
-  text-decoration: none;
+    color #000
+    cursor pointer
+    text-decoration none
 em
-  font-style: normal;
-  color: #CA0C16;
-/***头部样式***/
+    font-style normal
+    color #CA0C16
+/* **头部样式** */
 .header
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  width: 100%
-  height: 40px;
-  color: #333;
-  background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
-  padding: 0px 60px;
-  ul
-    display :inline-block;
-  .search
-    display :inline-block;
-    float: right;
-    width: 180px;
-    height: 26px;
-    border: 1px solid #CCC;
-    border-radius: 4px;
-    margin-top: 7px;
-    input
-      display: block;
-      float: left;
-      width: 142px;
-      padding: 4px 0 4px 7px;
-      font-size: 14px;
-      color: #999;
-      border: 0;
-      height: 100%;
-      border-radius: 10px;
-      background: 0 0;
-      &:focus
-        border :none;
-        outline: 0;
-        box-shadow: none;
-    .search-link
-      display: inline-block;
-      padding-top: 3px;
-    .search-icon
-      display :inline-block;
-      width :18px;
-      height :18px;
-      background-size :100%;
-      background-image :url("/img/search.png");
+    position fixed
+    top 0
+    z-index 100000
+    width 100%
+    height 40px
+    color #333
+    background-color #fff
+    box-shadow 0 2px 4px 0 rgba(0, 0, 0, 0.05)
+    padding 0px 60px
+    ul
+        display inline-block
+    .search
+        display inline-block
+        float right
+        width 180px
+        height 26px
+        border 1px solid #CCC
+        border-radius 4px
+        margin-top 7px
+        margin-right 20px
+        input
+            display block
+            float left
+            width 142px
+            padding 4px 0 4px 7px
+            font-size 14px
+            color #999
+            border 0
+            height 100%
+            border-radius 10px
+            background 0 0
+            &:focus
+                border none
+                outline 0
+                box-shadow none
+        .search-link
+            display inline-block
+            padding-top 3px
+        .search-icon
+            display inline-block
+            width 18px
+            height 18px
+            background-size 100%
+            background-image url('/img/search.png')
 .login-wrap
-  float:right;
-  padding: 10px 14px;
-  .login-item
-    display:inline-block;
-    padding-left:10px;
-    &:hover span
-      color:#CA0C16
-    span
-      font-size: 14px;
-      color: #3D3D3D;
-      vertical-align: super;
-  .login-icon
-    display:inline-block;
-    width:20px;
-    height:20px;
-    background-size:100%;
-    vertical-align: top;
-  .icon-blog
-    background-image :url("/img/w-blog.png");
-  .icon-msg
-    width:21px;
-    height:16px;
-    margin-top: 2px;
-    background-image :url("/img/message-icon.png");
+    float right
+    height 100%
+    .login-item
+        display inline-block
+        padding 10px 2px
+        &:hover span
+            color #CA0C16
+        span
+            font-size 14px
+            color #3D3D3D
+            vertical-align super
+    .login-icon
+        display inline-block
+        width 20px
+        height 20px
+        background-size 100%
+        vertical-align top
+    .icon-blog
+        background-image url('/img/w-blog.png')
+    .icon-msg
+        width 21px
+        height 16px
+        margin-top 2px
+        background-image url('/img/message-icon.png')
 .header_type-item
-  display: inline-block;
-  padding: 0 8px;
-  line-height: 38px;
-  cursor:pointer;
-
+    display inline-block
+    padding 0 8px
+    line-height 38px
+    cursor pointer
 .header_type-item.selected
-  border-bottom: 2px solid #CA0C16;
-
+    border-bottom 2px solid #CA0C16
 .content
-  width: 100%;
-  padding: 50px 70px 10px 70px;
-
+    width 100%
+    padding 50px 70px 10px 70px
+.icon
+    width 1em
+    height 1em
+    vertical-align -0.15em
+    fill currentColor
+    overflow hidden

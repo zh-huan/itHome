@@ -1,6 +1,5 @@
 import CryptoJS from 'crypto-js';
 import aeskey from './aeskey.js';
-const aes = {};
 /**
  * aes加密
  * @param data 待加密内容
@@ -8,9 +7,9 @@ const aes = {};
  * @param iv 向量
  * @returns {string}
  */
-aes.encryption = function (data, key, iv) {
+export function encryption(data, key, iv) {
     let aeskeys = getKeys(key, iv);
-    if(typeof data === 'object'){
+    if (typeof data === 'object') {
         data = JSON.stringify(data);
     }
     let encrypted = CryptoJS.AES.encrypt(data, aeskeys.key, {
@@ -27,7 +26,7 @@ aes.encryption = function (data, key, iv) {
  * @param iv 向量
  * @returns {string}
  */
-aes.decryption = function (data, key, iv) {
+export function decryption(data, key, iv) {
     if (!data) {
         return "";
     }
@@ -38,10 +37,11 @@ aes.decryption = function (data, key, iv) {
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
-    //return CryptoJS.enc.Utf8.stringify(decrypted);
-    let decryptedStr = decrypted.toString(CryptoJS.enc.Utf8);
-    return decryptedStr.toString();
+    return CryptoJS.enc.Utf8.stringify(decrypted);
+    // let decryptedStr = decrypted.toString(CryptoJS.enc.Utf8);
+    // return decryptedStr.toString();
 }
+
 function getKeys(key, iv) {
     iv = iv || "";
     if (!key) {
@@ -53,5 +53,3 @@ function getKeys(key, iv) {
         iv: CryptoJS.enc.Utf8.parse(iv)
     }
 }
-
-export default aes;
