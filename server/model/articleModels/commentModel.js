@@ -1,3 +1,6 @@
+/**
+ * 文章评论
+ */
 class commentModel {
     constructor() {
         this.articleId = "";
@@ -7,3 +10,4 @@ class commentModel {
         this.commentTime = "";
     }
 }
+module.exports = commentModel;

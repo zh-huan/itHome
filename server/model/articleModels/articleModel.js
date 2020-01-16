@@ -1,3 +1,4 @@
+const dbHelper = require("../../dbHelper/dbAdpter.js")();
 const TB_NAME = "tb_article";
 const UUID = require("uuid");
 
@@ -11,10 +12,11 @@ class articleModel {
         this.createTime = "";
         this.lastEditTime = "";
         this.state = 0; //0:保存，1：发布
+        this.delete = 0;
     }
 
     async getList(searchObj) {
-        let list = await dbHelper.find(TbName, searchObj);
+        let list = await dbHelper.find(TB_NAME, searchObj);
         return list;
     }
 
@@ -28,15 +30,16 @@ class articleModel {
                 userId: this.userId
             }
         }
-        article.articleId = UUID.v1;
+        article.articleId = UUID.v1();
         article.createTime = new Date();
-        let result = await dbHelper.insertOne(TbName, article);
+        let result = await dbHelper.insertOne(TB_NAME, article);
         return result;
     }
 
     async update(query, article) {
         article.lastEditTime = new Date();
-        let result = await dbHelper.insertOne(TbName, query, article);
+        let result = await dbHelper.update(TB_NAME, query, article);
         return result;
     }
 }
+module.exports = articleModel;

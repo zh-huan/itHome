@@ -19,12 +19,14 @@ export default function ajax(url = '', data = {}, type = 'GET') {
             })
             if (dataStr !== '') {
                 //dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
-                let token = storageUtil.getItem("token");
-                dataStr = 'token=' + token;
                 url = url + '?' + dataStr
             }
             // 发送 get 请求
-            promise = axios.get(url)
+            promise = axios.get(url, {
+                headers: {
+                    'Auth-header-token': token
+                }
+            })
         } else {
             // 发送 post 请求
             let param = {};
@@ -32,9 +34,13 @@ export default function ajax(url = '', data = {}, type = 'GET') {
                 data = {};
             }
             let token = storageUtil.getItem("token");
-            data.token = token;
+            //data.token = token;
             param.encode = encryption(data);
-            promise = axios.post(url, param)
+            promise = axios.post(url, param, {
+                headers: {
+                    'Auth-header-token': token
+                }
+            })
         }
         promise.then(response => {
             tokenExpired(url, response.data);

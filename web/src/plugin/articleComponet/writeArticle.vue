@@ -8,7 +8,7 @@
                 class="article-title_input el-input__inner"
             />
             <button class="el-button button-save" @click="saveArticle">保存草稿</button>
-            <button class="el-button button-public">发布文章</button>
+            <button class="el-button button-public" @click="publicArticle">发布文章</button>
         </div>
         <div class="article-content">
             <mavon-editor
@@ -19,6 +19,7 @@
                 style="min-height: 600px"
             />
         </div>
+        <div class="article-publish_success"></div>
     </div>
 </template>
 <script>
@@ -60,12 +61,16 @@ export default {
         },
         saveArticle() {
             this.aricle.state = 0;
-            this.addArticle();
+            this.addArticle(this.aricle);
+        },
+        publicArticle() {
+            this.aricle.state = 1;
+            this.addArticle(this.aricle);
         },
         addArticle(aricle) {
             this.$ajax("/api/article/add", aricle, "POST")
                 .then(result => {
-                    if (result.data > 0) {
+                    if (result.datas > 0) {
                         console.log("发布成功。");
                     }
                 })

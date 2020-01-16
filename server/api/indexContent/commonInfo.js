@@ -9,8 +9,7 @@ router.use(verifyToken)
 router.post("/getCommonInfo", async (ctx) => {
     let result = new ctx.Result();
     try {
-        let params = ctx.request.body;
-        let token = params.token;
+        let token = ctx.request.header["auth-header-token"];
         let userInfo = await tokenUtil.verifyToken(token);
         let commonInfo = {
             userInfo

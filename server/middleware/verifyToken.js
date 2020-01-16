@@ -9,7 +9,7 @@ const {
 async function verifyToken(ctx, next) {
     let result = new ctx.Result();
     //传递的参数是否有token参数
-    const token = ctx.request.body.token;
+    const token = ctx.request.header["auth-header-token"];
     try {
         if (token) {
             let playload = await jwt.verify(token, tokenConfig.secret);

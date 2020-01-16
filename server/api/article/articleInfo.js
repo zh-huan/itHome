@@ -11,7 +11,7 @@ router.post("/getlist", async (ctx) => {
     let result = new ctx.Result();
     try {
         let params = ctx.request.body;
-        let token = params.token;
+        let token = ctx.request.header["auth-header-token"];
         let userInfo = await tokenUtil.verifyToken(token);
         params.userId = userInfo.userId;
         let article = new Article();
@@ -25,14 +25,14 @@ router.post("/add", async (ctx) => {
     let result = new ctx.Result();
     try {
         let params = ctx.request.body;
-        let token = params.token;
+        let token = ctx.request.header["auth-header-token"];
         let userInfo = await tokenUtil.verifyToken(token);
         params.userId = userInfo.userId;
         let article = new Article();
-        let result = article.add(params);
-        ctx.body = result.setDatas(result);
+        let rst = await article.add(params);
+        ctx.body = result.setDatas(rst);
     } catch (e) {
-        ctx.body = result.setError(e);
+        ctx.body = result.setError(e.message);
     }
 })
 module.exports = router;
