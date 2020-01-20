@@ -19,7 +19,10 @@ class articleModel {
         let list = await dbHelper.find(TB_NAME, searchObj);
         return list;
     }
-
+    async getListPage(searchObj) {
+        let list = await dbHelper.find(TB_NAME, searchObj);
+        return list;
+    }
     async add(article) {
         if (!article) {
             article = {

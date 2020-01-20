@@ -29,7 +29,7 @@ async function verifyToken(ctx, next) {
             ctx.body = result;
         }
     } catch (error) {
-        result.setError(error);
+        result.setError(error.message);
         ctx.status = 200
         ctx.body = result;
     }
