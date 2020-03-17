@@ -13,6 +13,7 @@ module.exports = {
     //入口文件输出配置
     output: {
         path: path.resolve(__dirname, ""),
+        publicPath:"http://localhost:8900/",
         filename: "dist/web/script/[name].min.js",
         chunkFilename: "dist/web/script/[name].[chunkhash:8].min.js"
     },
@@ -41,6 +42,20 @@ module.exports = {
                 test: /\.(html)$/,
                 use: {
                     loader: 'html-loader'
+                }
+            },
+			{
+                test:/\.js$/,
+                exclude:/(node_modules|static_dev\vue_frame\script\lib)/,
+                use:{
+                    loader:'babel-loader',
+                    options:{
+                        presets:['@babel/preset-env'],
+                        plugins:[
+						    "@babel/syntax-dynamic-import",
+						    "@babel/plugin-transform-runtime",
+						]
+                    }
                 }
             },
             {

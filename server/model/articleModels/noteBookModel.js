@@ -12,7 +12,7 @@ class noteBookModel {
         this.noteBookTitle = "";
         this.createTime = "";
         this.lastEditTime = "";
-        this.delete = 1; //已删除：0，未删除：1
+        this.delete = 0; //已删除：1，未删除：0
     }
     async getList(searchObj) {
         let list = await dbHelper.find(TB_NAME, searchObj);
@@ -31,7 +31,7 @@ class noteBookModel {
         }
         noteBook.noteBookId = UUID.v1();
         noteBook.createTime = new Date();
-        noteBook.delete = 1;
+        noteBook.delete = 0;
         let result = await dbHelper.insertOne(TB_NAME, noteBook);
         return result;
     }
@@ -43,7 +43,7 @@ class noteBookModel {
     }
     async delete(query) {
         let noteBook = {};
-        noteBook.delete = 0;
+        noteBook.delete = 1;
         noteBook.deleteTime = new Date();
         let result = await dbHelper.update(TB_NAME, query, noteBook);
         return result;

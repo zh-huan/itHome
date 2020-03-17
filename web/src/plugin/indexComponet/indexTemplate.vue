@@ -41,7 +41,7 @@
                     </div>
                 </li>
             </ul>
-          <contentLoading></contentLoading>
+          <contentLoading v-if="currentPage < pageCount"></contentLoading>
         </main>
         <aside class="content-aside clearfix">
         </aside>
@@ -69,6 +69,7 @@
             getSubType() {
                 // 并且响应成功以后会执行then方法中的回调函数
                 let type = this.$route.params.type;
+                type||(type="xxx");
                 this.$ajax("/api/index/getsubType", {type: type}, "POST").then((result) => {
                     this.subTypes = result.datas;
                     if (this.subTypes && this.subTypes.length) {

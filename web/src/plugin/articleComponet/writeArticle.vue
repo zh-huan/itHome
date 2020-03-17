@@ -30,12 +30,18 @@ export default {
     components: {
         mavonEditor
     },
+    props:{
+        aricle:{
+            type:Object,
+            default:{}
+        }
+    },
     data() {
         return {
-            aricle: {
-                title: "",
-                content: ""
-            },
+            // aricle: {
+            //     title: "",
+            //     content: ""
+            // },
             content: "", // 输入的markdown
             html: "" // 及时转的html
         };
@@ -60,7 +66,6 @@ export default {
             this.html = render;
         },
         saveArticle() {
-            this.aricle.state = 0;
             this.addArticle(this.aricle);
         },
         publicArticle() {
@@ -68,10 +73,14 @@ export default {
             this.addArticle(this.aricle);
         },
         addArticle(aricle) {
-            this.$ajax("/api/article/add", aricle, "POST")
+            this.$ajax("/api/article/update", aricle, "POST")
                 .then(result => {
-                    if (result.datas > 0) {
-                        console.log("发布成功。");
+                    if (result.type == 1 && result.datas > 0) {
+                        this.$elms({
+                        showClose: true,
+                        type: "success",
+                        message: "保存成功"
+                        });
                     }
                 })
                 .catch(err => {

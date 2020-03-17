@@ -90,11 +90,15 @@ class mongodbHelper {
      *collectionName：集合名称
      *search：查询条件
      * **/
-    find(collectionName, search) {
+    find(collectionName, search,keys=null) {
+        if(!keys){
+            keys={}
+        }
+        keys["_id"]=0;
         return new Promise((resolve, reject) => {
             this.connection().then(db => {
                 var dbase = db.db(dbInfo.dbName);
-                dbase.collection(collectionName).find(search).toArray(function (err, result) {
+                dbase.collection(collectionName).find(search).project(keys).toArray(function (err, result) {
                     db.close();
                     if (err) {
                         reject(err);

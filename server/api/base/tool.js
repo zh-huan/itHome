@@ -32,7 +32,12 @@ function getAddress(req) {
                     let decodedBody = iconv.decode(Buffer.concat(chunks), "utf-8");
                     let body = null;
                     if (decodedBody) {
-                        body = JSON.parse(decodedBody)
+                        try{
+                            body = JSON.parse(decodedBody)
+                        }catch(e){
+                            body = "";
+                        }
+                        
                     }
                     resolve(body);
                 });

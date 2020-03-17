@@ -16,6 +16,9 @@ app.use(history({
     rewrites: [{
         from: /^\/login/,
         to: "/login.html"
+    },{
+        from: /^\/app/,
+        to: "/appIndex.html"
     }],
     verbose: true
 }));

@@ -45,10 +45,9 @@ export default {
     methods: {
         login() {
             let redirect = getUrlParams("redirect");
+            redirect = decryption(redirect);
             if (!redirect) {
                 redirect = "/";
-            } else {
-                redirect = decryption(redirect);
             }
             this.$ajax(`/api/user/login`, { userInfo: this.userInfo }, "POST")
                 .then(result => {

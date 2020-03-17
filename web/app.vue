@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="width:100%;height:100%">
         <loading :state="loading"></loading>
-        <div class="header">
+        <div class="header" >
             <ul class="header_type">
                 <li
                     class="header_type-item"
@@ -83,6 +83,7 @@
 </template>
 <script>
 import "./src/assets/css/base.styl";
+import "./src/assets/css/index.styl";
 import { on, closest, goToLogin } from "@/common/util.js";
 export default {
     data() {
@@ -93,7 +94,7 @@ export default {
             searchKey: null,
             hasLogin: false,
             headerImg: "/img/header.jpg",
-            showUserList: false
+            showUserList: false,
         };
     },
     mounted() {
@@ -145,7 +146,7 @@ export default {
         },
         getSelected(types) {
             let type = this.$route.params.type;
-            if (!type && this.$route.name == "index") {
+            if (!type && (!this.$route.name || this.$route.name == "index")) {
                 this.typeClick(types[0]);
                 return;
             } else {
@@ -191,10 +192,10 @@ export default {
         },
         writeArticle() {
             if (!this.$store.getters.getCurrentUser) {
-                goToLogin("/write-article");
+                goToLogin("/write");
                 return;
             }
-            this.$router.push("/write-article");
+            this.$router.push("/write");
         }
     }
 };

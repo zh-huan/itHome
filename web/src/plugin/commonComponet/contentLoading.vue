@@ -16,10 +16,6 @@
         margin : 0 auto;
         text-align: center;
         padding: 10px;
-    .icon
-        width :18px;
-        height :18px;
-        background-image :url("../../assets/img/loading.gif");
     .post-list-loading .loading {
         width: 4px;
         height: 4px;
