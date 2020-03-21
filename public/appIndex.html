@@ -4,10 +4,96 @@
 <head>
     <meta charset="utf-8">
     <meta name="referrer" content="no-referrer">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <title>XXX</title>
+    <script type="text/javascript">
+        (function () {
+            var sUserAgent = navigator.userAgent;
+            if (sUserAgent.indexOf('Android') < 0 && sUserAgent.indexOf('iPhone') < 0 && sUserAgent.indexOf(
+                'iPad') < 0 && sUserAgent.indexOf('iPod') < 0 && sUserAgent.indexOf('Symbian') < 0) {
+                location.href = '/';
+            } else {}
+        })();
+    </script>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html,body {
+            background: #f5f6f7;
+            font-size: 16px;
+            overflow-x: hidden;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body,
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        body,
+        input {
+            border: 0;
+        }
+
+        input {
+            outline: 0;
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0;
+            color: inherit;
+            font-size: inherit;
+            font-family: inherit;
+            line-height: inherit;
+        }
+
+        .clearfix:after {
+            content: '.';
+            height: 0;
+            visibility: hidden;
+            display: block;
+            clear: both;
+        }
+
+        a {
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        em {
+            font-style: normal;
+            color: #CA0C16;
+        }
+
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>

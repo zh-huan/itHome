@@ -5,19 +5,19 @@ Vue.use(VueRouter);
 import Vuex from "vuex"
 Vue.use(Vuex);
 
-import ajax from "@/common/axios.js"
+import ajax from "../commonUtil/axios.js"
 import Login from "./login.vue"
 import router from "./router/router"
 import 'element-ui/lib/theme-chalk/index.css';
 
-import vuexStore from '@/common/vuexStore.js'
+import vuexStore from '../commonUtil/vuexStore.js'
 
 const store = vuexStore(Vuex);
 Vue.prototype.$ajax = ajax;
 
-import storageUtil from '@/common/storageUtil.js'
+import storageUtil from '../commonUtil/storageUtil.js'
 window.storageUtil = storageUtil;
-import * as aes from "@/common/aes.js"
+import * as aes from "../commonUtil/aes.js"
 window.aes = aes;
 import {
     Form,
